@@ -1,0 +1,60 @@
+package br.edu;
+
+
+
+    // Definindo uma interface de notificação
+    interface Notificacao {
+        void enviar(String mensagem);
+    }
+
+    // Implementando os tipos de notificação
+    class NotificacaoEmail implements Notificacao {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando email: " + mensagem);
+        }
+    }
+
+    class NotificacaoApp implements Notificacao {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando notificação por App: " + mensagem);
+        }
+    }
+
+    class NotificacaoRedeSocial implements Notificacao {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando notificação via Rede Social: " + mensagem);
+        }
+    }
+
+    class GerenciadorDeNotificacoes {
+        private Notificacao tipoDeNotificacao;
+
+        public GerenciadorDeNotificacoes(Notificacao tipoDeNotificacao) {
+            this.tipoDeNotificacao = tipoDeNotificacao;
+        }
+
+        public void mudarTipoDeNotificacao(Notificacao novoTipo) {
+            this.tipoDeNotificacao = novoTipo;
+        }
+
+        public void enviarNotificacao(String mensagem) {
+            tipoDeNotificacao.enviar(mensagem);
+        }
+    }
+
+    class Main {
+        public static void main(String[] args) {
+            GerenciadorDeNotificacoes gerenciador = new GerenciadorDeNotificacoes(new NotificacaoEmail());
+            gerenciador.enviarNotificacao("Olá mundo!");
+
+            gerenciador.mudarTipoDeNotificacao(new NotificacaoApp());
+            gerenciador.enviarNotificacao("Olá novamente!");
+
+            gerenciador.mudarTipoDeNotificacao(new NotificacaoRedeSocial());
+            gerenciador.enviarNotificacao("Olá pela terceira vez!");
+        }
+    }
+
